@@ -27,7 +27,9 @@ export WOOCOMMERCE_ADMIN_USER=admin
 export WOOCOMMERCE_ADMIN_PASSWORD=password
 
 git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
+echo "Cloning done"
 cd docker-images/woocommerce-ci
+echo "Enter done"
 
 #run shop system in the background
 ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --daemon
