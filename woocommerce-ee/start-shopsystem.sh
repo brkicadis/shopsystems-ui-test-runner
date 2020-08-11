@@ -31,7 +31,7 @@ git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 cd docker-images/woocommerce-ci
 
 #run shop system in the background
-./run.xsh --non-interactive ${WOOCOMMERCE_CONTAINER_NAME}
+./run.xsh --non-interactive -d ${WOOCOMMERCE_CONTAINER_NAME}
 
 docker ps
 
