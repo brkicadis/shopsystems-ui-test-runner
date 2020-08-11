@@ -31,7 +31,7 @@ git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 cd docker-images/woocommerce-ci
 
 #run shop system in the background
-./run.xsh ${WOOCOMMERCE_CONTAINER_NAME}
+./run.xsh --non-interactive ${WOOCOMMERCE_CONTAINER_NAME} --daemon
 
 docker ps
 
@@ -40,8 +40,6 @@ while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/
     sleep 5
     ((c++)) && ((c == 50)) && break
 done
-
-echo "Done"
 
 #install wordpress
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp core install --allow-root --url="${NGROK_URL}" --admin_password="${WOOCOMMERCE_ADMIN_PASSWORD}" --title=test --admin_user=${WOOCOMMERCE_ADMIN_USER} --admin_email=test@test.com
