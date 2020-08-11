@@ -41,6 +41,8 @@ while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/
     ((c++)) && ((c == 50)) && break
 done
 
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh "${NGROK_URL#*//}"
+
 #install wordpress
 #docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp core install --allow-root --url="${NGROK_URL}" --admin_password="${WOOCOMMERCE_ADMIN_PASSWORD}" --title=test --admin_user=${WOOCOMMERCE_ADMIN_USER} --admin_email=test@test.com
 
@@ -63,5 +65,5 @@ done
 #docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp wc tool run install_pages --user=admin --allow-root
 
 #make PayPal order number unique
-docker exec -i web bash -c "sed -i 's/ = \$this->orderNumber\;/ = \$this->orderNumber . md5(time())\;/' /var/www/html/wp-content/plugins/wirecard-woocommerce-extension/vendor/wirecard/payment-sdk-php/src/Transaction/PayPalTransaction.php"
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} bash -c "sed -i 's/ = \$this->orderNumber\;/ = \$this->orderNumber . md5(time())\;/' /var/www/html/wp-content/plugins/wirecard-woocommerce-extension/vendor/wirecard/payment-sdk-php/src/Transaction/PayPalTransaction.php"
 
