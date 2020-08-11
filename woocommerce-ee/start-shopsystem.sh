@@ -41,27 +41,29 @@ while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/
     ((c++)) && ((c == 50)) && break
 done
 
+echo "Done"
+
 #install wordpress
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp core install --allow-root --url="${NGROK_URL}" --admin_password="${WOOCOMMERCE_ADMIN_PASSWORD}" --title=test --admin_user=${WOOCOMMERCE_ADMIN_USER} --admin_email=test@test.com
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp core install --allow-root --url="${NGROK_URL}" --admin_password="${WOOCOMMERCE_ADMIN_PASSWORD}" --title=test --admin_user=${WOOCOMMERCE_ADMIN_USER} --admin_email=test@test.com
 
 #activate woocommerce
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp plugin activate woocommerce --allow-root
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp plugin activate woocommerce --allow-root
 
 #activate woocommerce-ee
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp plugin activate wirecard-woocommerce-extension --allow-root
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp plugin activate wirecard-woocommerce-extension --allow-root
 
 #install wordpress-importer
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp plugin install wordpress-importer --activate --allow-root
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp plugin install wordpress-importer --activate --allow-root
 
 #import sample product
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp import /var/www/html/wp-content/plugins/woocommerce/sample-data/sample_products.xml --allow-root --authors=create
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp import /var/www/html/wp-content/plugins/woocommerce/sample-data/sample_products.xml --allow-root --authors=create
 
 #activate storefront theme
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp theme install storefront --activate --allow-root
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp theme install storefront --activate --allow-root
 
 #install shop pages
-docker exec -ti ${WOOCOMMERCE_CONTAINER_NAME} wp wc tool run install_pages --user=admin --allow-root
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp wc tool run install_pages --user=admin --allow-root
 
 #make PayPal order number unique
-docker exec -ti web bash -c "sed -i 's/ = \$this->orderNumber\;/ = \$this->orderNumber . md5(time())\;/' /var/www/html/wp-content/plugins/wirecard-woocommerce-extension/vendor/wirecard/payment-sdk-php/src/Transaction/PayPalTransaction.php"
+docker exec -i web bash -c "sed -i 's/ = \$this->orderNumber\;/ = \$this->orderNumber . md5(time())\;/' /var/www/html/wp-content/plugins/wirecard-woocommerce-extension/vendor/wirecard/payment-sdk-php/src/Transaction/PayPalTransaction.php"
 
