@@ -40,13 +40,13 @@ docker ps
 
 
 
-#while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/install.php"); do
-#    echo "Waiting for docker container to initialize"
-#    sleep 5
-#    ((c++)) && ((c == 50)) && break
-#done
+while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/install.php"); do
+    echo "Waiting for docker container to initialize"
+    sleep 5
+    ((c++)) && ((c == 50)) && break
+done
 
-sleep 60
+sleep 5
 echo "Change hostname"
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh a299ee48a91a.ngrok.io
 
