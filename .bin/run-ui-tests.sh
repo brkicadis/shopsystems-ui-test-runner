@@ -63,7 +63,7 @@ else
   cd shopsystems-ui-testsuite
 
   echo "Installing shopsystems-ui-testsuite dependencies"
-  docker run --rm -it --volume $(pwd):/app prooph/composer:7.2 install --dev
+  docker run --rm -i --volume $(pwd):/app prooph/composer:7.2 install --dev
 
   echo "Second one"
   ls
