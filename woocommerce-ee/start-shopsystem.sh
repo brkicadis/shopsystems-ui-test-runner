@@ -41,4 +41,3 @@ docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/
 
 # make PayPal order number unique
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} bash -c "sed -i 's/ = \$this->orderNumber\;/ = \$this->orderNumber . md5(time())\;/' /srv/http/wp-content/plugins/woocommerce-wirecard-ee/vendor/wirecard/payment-sdk-php/src/Transaction/PayPalTransaction.php"
-
