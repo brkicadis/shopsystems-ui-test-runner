@@ -31,7 +31,7 @@ git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 cd docker-images/woocommerce-dev
 
 #run shop system in the background
-SHOP_VERSION=${SHOP_SYSTEM_VERSION} WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=${PHP_VERSION} INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --non-interactive -d --daemon
+SHOP_VERSION=5.4.2 WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=74 INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --non-interactive -d --daemon
 
 docker ps
 
@@ -42,7 +42,7 @@ docker ps
 #done
 
 echo "Change hostname"
-docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh "${NGROK_URL#*//}"
+docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh a299ee48a91a.ngrok.io
 
 #install wordpress
 #docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp core install --allow-root --url="${NGROK_URL}" --admin_password="${WOOCOMMERCE_ADMIN_PASSWORD}" --title=test --admin_user=${WOOCOMMERCE_ADMIN_USER} --admin_email=test@test.com
