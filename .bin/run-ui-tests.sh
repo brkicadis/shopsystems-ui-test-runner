@@ -57,10 +57,10 @@ if [ -n "$FEATURE_FILES" ]; then
     done
   done
 else
-  ls
+
   git clone  --branch master https://github.com/wirecard/shopsystems-ui-testsuite.git
   cd shopsystems-ui-testsuite
-  ls
+
   echo "Installing shopsystems-ui-testsuite dependencies"
   docker run --rm -i --volume $(pwd):/app prooph/composer:7.2 install --dev
 
