@@ -30,6 +30,9 @@ git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 
 cd docker-images/woocommerce-dev
 
+# clean up images
+docker rmi "$(docker images -q)"
+
 #run shop system in the background
 SHOP_VERSION=5.4.2 WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=74 INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --non-interactive -d
 
