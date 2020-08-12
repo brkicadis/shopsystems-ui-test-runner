@@ -35,12 +35,13 @@ SHOP_VERSION=${SHOP_SYSTEM_VERSION} WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=${
 
 docker ps
 
-while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/install.php"); do
-    echo "Waiting for docker container to initialize"
-    sleep 5
-    ((c++)) && ((c == 50)) && break
-done
+#while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/install.php"); do
+#    echo "Waiting for docker container to initialize"
+#    sleep 5
+#    ((c++)) && ((c == 50)) && break
+#done
 
+echo "Change hostname"
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh "${NGROK_URL#*//}"
 
 #install wordpress
@@ -64,6 +65,7 @@ docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/
 #install shop pages
 #docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} wp wc tool run install_pages --user=admin --allow-root
 
+echo "Change PayPal ID"
 #make PayPal order number unique
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} bash -c "sed -i 's/ = \$this->orderNumber\;/ = \$this->orderNumber . md5(time())\;/' /var/www/html/wp-content/plugins/wirecard-woocommerce-extension/vendor/wirecard/payment-sdk-php/src/Transaction/PayPalTransaction.php"
 
