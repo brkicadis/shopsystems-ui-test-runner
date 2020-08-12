@@ -28,46 +28,48 @@ case ${GIT_BRANCH} in
 	*) TEST_GROUP="${MAJOR_RELEASE}" ;;
 esac
 
-ls
-
 if [ -n "$FEATURE_FILES" ]; then
-  composer require wirecard/shopsystem-ui-testsuite:dev-"${TEST_SUITE_BRANCH}"
+  git clone  --branch "${TEST_SUITE_BRANCH}" https://github.com/wirecard/shopsystems-ui-testsuite.git
+  cd shopsystems-ui-testsuite
+
+  export SHOP_SYSTEM="${SHOP_SYSTEM}"
+  export SHOP_URL="${NGROK_URL}"
+  export EXTENSION_VERSION="${GIT_BRANCH}"
+  export DB_HOST="${SHOP_DB_SERVER}"
+  export DB_NAME="${SHOP_DB_NAME}"
+  export DB_USER="${SHOP_DB_USER}"
+  export DB_PASSWORD="${SHOP_DB_PASSWORD}"
+  export SHOP_VERSION="${SHOP_VERSION}"
+  export BROWSERSTACK_USER="${BROWSERSTACK_USER}"
+  export BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}"
 
   for FEATURE_FILE in ${FEATURE_FILES}; do
     for i in {1..30}; do
       if [[ $FEATURE_FILE == *".feature"* ]]; then
-        docker run \
-	  -e SHOP_SYSTEM="${SHOP_SYSTEM}" \
-	  -e SHOP_URL="${NGROK_URL}" \
-	  -e SHOP_VERSION="${SHOP_VERSION}" \
-	  -e EXTENSION_VERSION="${TEST_SUITE_BRANCH}" \
-	  -e DB_HOST="${SHOP_DB_SERVER}" \
-	  -e DB_NAME="${SHOP_DB_NAME}" \
-	  -e DB_USER="${SHOP_DB_USER}" \
-	  -e DB_PASSWORD="${SHOP_DB_PASSWORD}" \
-	  -e BROWSERSTACK_USER="${BROWSERSTACK_USER}" \
-	  -e BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}" \
-	  codecept run acceptance "$FEATURE_FILE" \
-	  -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
-	  --env ci --html --xml
+        echo "Running tests on specific branch"
+        vendor/bin/codecept run acceptance "$FEATURE_FILE" \
+          -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
+          --env ci --html --xml
       fi
     done
   done
 else
-  composer require wirecard/shopsystem-ui-testsuite:dev-master
+  git clone  --branch master https://github.com/wirecard/shopsystems-ui-testsuite.git
+  cd shopsystems-ui-testsuite
 
-  docker run \
-    -e SHOP_SYSTEM="${SHOP_SYSTEM}" \
-    -e SHOP_URL="${NGROK_URL}" \
-    -e SHOP_VERSION="${SHOP_VERSION}" \
-    -e EXTENSION_VERSION="${GIT_BRANCH}" \
-    -e DB_HOST="${SHOP_DB_SERVER}" \
-    -e DB_NAME="${SHOP_DB_NAME}" \
-    -e DB_USER="${SHOP_DB_USER}" \
-    -e DB_PASSWORD="${SHOP_DB_PASSWORD}" \
-    -e BROWSERSTACK_USER="${BROWSERSTACK_USER}" \
-    -e BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}" \
-    codecept run acceptance \
+  export SHOP_SYSTEM="${SHOP_SYSTEM}"
+  export SHOP_URL="${NGROK_URL}"
+  export EXTENSION_VERSION="${GIT_BRANCH}"
+  export DB_HOST="${SHOP_DB_SERVER}"
+  export DB_NAME="${SHOP_DB_NAME}"
+  export DB_USER="${SHOP_DB_USER}"
+  export DB_PASSWORD="${SHOP_DB_PASSWORD}"
+  export SHOP_VERSION="${SHOP_VERSION}"
+  export BROWSERSTACK_USER="${BROWSERSTACK_USER}"
+  export BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}"
+
+  echo "Running tests on specific branch"
+  vendor/bin/codecept run acceptance \
     -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
     --env ci --html --xml
 fi

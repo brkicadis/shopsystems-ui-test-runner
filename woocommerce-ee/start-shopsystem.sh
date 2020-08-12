@@ -36,6 +36,8 @@ while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/
 done
 
 sleep 5
+
+# change hostname
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh "${NGROK_URL#*//}"
 
 # make PayPal order number unique
