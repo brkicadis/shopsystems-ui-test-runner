@@ -27,11 +27,11 @@ export WOOCOMMERCE_ADMIN_USER=admin
 export WOOCOMMERCE_ADMIN_PASSWORD=password
 
 # clean up images
-docker rmi "$(docker images -a -q)"
+docker rmi wirecard/woocommerce-ci:wordpress-5.4.2_php-74
 
 git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 
-cd docker-images/woocommerce-dev
+cd docker-images/woocommerce-ci
 
 #run shop system in the background
 SHOP_VERSION=5.4.2 WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=74 INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --non-interactive -d
