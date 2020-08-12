@@ -34,9 +34,11 @@ git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 cd docker-images/woocommerce-ci
 
 #run shop system in the background
-SHOP_VERSION=5.4.2 WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=74 INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} -d --daemon
+SHOP_VERSION=5.4.2 WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=74 INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --daemon
 
 docker ps
+
+
 
 #while ! $(curl --output /dev/null --silent --head --fail "${NGROK_URL}/wp-admin/install.php"); do
 #    echo "Waiting for docker container to initialize"
@@ -44,7 +46,7 @@ docker ps
 #    ((c++)) && ((c == 50)) && break
 #done
 
-sleep 20
+sleep 60
 echo "Change hostname"
 docker exec -i ${WOOCOMMERCE_CONTAINER_NAME} /opt/wirecard/apps/woocommerce/bin/hostname-changed.xsh a299ee48a91a.ngrok.io
 
