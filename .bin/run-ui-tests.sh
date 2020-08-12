@@ -37,12 +37,12 @@ if [ -n "$FEATURE_FILES" ]; then
 
   export SHOP_SYSTEM="${SHOP_SYSTEM}"
   export SHOP_URL="${NGROK_URL}"
-  export EXTENSION_VERSION="${GIT_BRANCH}"
+  export SHOP_VERSION="${SHOP_VERSION}"
+  export EXTENSION_VERSION="${TEST_SUITE_BRANCH}"
   export DB_HOST="${SHOP_DB_SERVER}"
   export DB_NAME="${SHOP_DB_NAME}"
   export DB_USER="${SHOP_DB_USER}"
   export DB_PASSWORD="${SHOP_DB_PASSWORD}"
-  export SHOP_VERSION="${SHOP_VERSION}"
   export BROWSERSTACK_USER="${BROWSERSTACK_USER}"
   export BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}"
 
@@ -57,28 +57,25 @@ if [ -n "$FEATURE_FILES" ]; then
     done
   done
 else
-  echo "First one"
-  ls
+
   git clone  --branch master https://github.com/wirecard/shopsystems-ui-testsuite.git
   cd shopsystems-ui-testsuite
 
   echo "Installing shopsystems-ui-testsuite dependencies"
   docker run --rm -i --volume $(pwd):/app prooph/composer:7.2 install --dev
 
-  echo "Second one"
-  ls
   export SHOP_SYSTEM="${SHOP_SYSTEM}"
   export SHOP_URL="${NGROK_URL}"
+  export SHOP_VERSION="${SHOP_VERSION}"
   export EXTENSION_VERSION="${GIT_BRANCH}"
   export DB_HOST="${SHOP_DB_SERVER}"
   export DB_NAME="${SHOP_DB_NAME}"
   export DB_USER="${SHOP_DB_USER}"
   export DB_PASSWORD="${SHOP_DB_PASSWORD}"
-  export SHOP_VERSION="${SHOP_VERSION}"
   export BROWSERSTACK_USER="${BROWSERSTACK_USER}"
   export BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}"
 
-  echo "Running tests on specific branch"
+  echo "Running tests"
   vendor/bin/codecept run acceptance \
     -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
     --env ci --html --xml
