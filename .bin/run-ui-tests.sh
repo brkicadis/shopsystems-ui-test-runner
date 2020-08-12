@@ -57,9 +57,7 @@ if [ -n "$FEATURE_FILES" ]; then
     done
   done
 else
-  cd tests
   ls
-  cd ..
   git clone  --branch master https://github.com/wirecard/shopsystems-ui-testsuite.git
   cd shopsystems-ui-testsuite
   ls

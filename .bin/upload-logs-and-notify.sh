@@ -33,6 +33,8 @@ HTML_REPORT=$(jq -r ".$SHOP_SYSTEM.html" shopsystems-ui-test-runner/configuratio
 XML_REPORT=$(jq -r ".$SHOP_SYSTEM.xml" shopsystems-ui-test-runner/configuration.json)
 PNG_REPORT=$(jq -r ".$SHOP_SYSTEM.png" shopsystems-ui-test-runner/configuration.json)
 
+ls
+
 cp ${HTML_REPORT} ${REPO_NAME}/${RELATIVE_REPORTS_LOCATION}
 cp ${XML_REPORT} ${REPO_NAME}/${RELATIVE_REPORTS_LOCATION}
 if [[ $1 == 'fail' ]]; then
