@@ -25,7 +25,7 @@ git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 
 cd docker-images/woocommerce-ci
 
-SHOP_VERSION=${SHOP_SYSTEM_VERSION} WIRECARD_PLUGIN_VERSION=3.3.4 PHP_VERSION=${PHP_VERSION} INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --daemon
+SHOP_VERSION=5.4.2 WIRECARD_PLUGIN_VERSION=3.3.4 PHP_VERSION=${PHP_VERSION} INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --daemon
 
 docker ps
 

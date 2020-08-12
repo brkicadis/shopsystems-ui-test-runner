@@ -28,6 +28,8 @@ case ${GIT_BRANCH} in
 	*) TEST_GROUP="${MAJOR_RELEASE}" ;;
 esac
 
+ls
+
 if [ -n "$FEATURE_FILES" ]; then
   composer require wirecard/shopsystem-ui-testsuite:dev-"${TEST_SUITE_BRANCH}"
 
