@@ -32,6 +32,9 @@ if [ -n "$FEATURE_FILES" ]; then
   git clone  --branch "${TEST_SUITE_BRANCH}" https://github.com/wirecard/shopsystems-ui-testsuite.git
   cd shopsystems-ui-testsuite
 
+  echo "Installing shopsystems-ui-testsuite dependencies"
+  docker run --rm -it --volume $(pwd):/app prooph/composer:7.2 install --dev
+
   export SHOP_SYSTEM="${SHOP_SYSTEM}"
   export SHOP_URL="${NGROK_URL}"
   export EXTENSION_VERSION="${GIT_BRANCH}"
@@ -54,9 +57,16 @@ if [ -n "$FEATURE_FILES" ]; then
     done
   done
 else
+  echo "First one"
+  ls
   git clone  --branch master https://github.com/wirecard/shopsystems-ui-testsuite.git
   cd shopsystems-ui-testsuite
 
+  echo "Installing shopsystems-ui-testsuite dependencies"
+  docker run --rm -it --volume $(pwd):/app prooph/composer:7.2 install --dev
+
+  echo "Second one"
+  ls
   export SHOP_SYSTEM="${SHOP_SYSTEM}"
   export SHOP_URL="${NGROK_URL}"
   export EXTENSION_VERSION="${GIT_BRANCH}"
