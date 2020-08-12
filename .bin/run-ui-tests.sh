@@ -57,10 +57,12 @@ if [ -n "$FEATURE_FILES" ]; then
     done
   done
 else
-
+  cd tests
+  ls
+  cd ..
   git clone  --branch master https://github.com/wirecard/shopsystems-ui-testsuite.git
   cd shopsystems-ui-testsuite
-
+  ls
   echo "Installing shopsystems-ui-testsuite dependencies"
   docker run --rm -i --volume $(pwd):/app prooph/composer:7.2 install --dev
 
@@ -76,7 +78,7 @@ else
   export BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}"
 
   echo "Running tests"
-  vendor/bin/codecept run acceptance \
+  vendor/bin/codecept run acceptance tests/acceptance/Alipay/AlipayCrossBorderInitialTransaction.feature \
     -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
     --env ci --html --xml
 fi
