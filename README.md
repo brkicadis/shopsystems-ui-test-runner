@@ -60,15 +60,7 @@ Structure
     ├── woocommerce-ee                      # woocommerce related files
     |    ├── .env                           # environemnt variables
     |    | 
-    |    ├── docker-compose.yml       
-    |    |
-    |    ├── Dockerfile                     # woocommerce Dockerfile
-    |    |
-    |    |── Dockerfile_codeception         # codeception Dockerfile
-    |    |
     |    |── setup-and-run-ui-tests.sh      # run all scripts
-    |    |           
-    |    ├── generate-release-package.sh    # generate release package zip file 
     |    |  
     |    ├── start-shopsystem.sh            # start shop system  
     ├── configuration.json                  # test results output paths

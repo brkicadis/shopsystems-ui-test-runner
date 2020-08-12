@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 export WOOCOMMERCE_CONTAINER_NAME=woo_commerce
-export WOOCOMMERCE_PATH="shopsystems-ui-test-runner/woocommerce-ee"
 
 for ARGUMENT in "$@"; do
   KEY=$(echo "${ARGUMENT}" | cut -f1 -d=)
