@@ -28,10 +28,10 @@ export WOOCOMMERCE_ADMIN_PASSWORD=password
 
 git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 
-cd docker-images/woocommerce-dev
+cd docker-images/woocommerce-ci
 
 #run shop system in the background
-SHOP_VERSION=${SHOP_SYSTEM_VERSION} WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=${PHP_VERSION} INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --non-interactive --daemon
+SHOP_VERSION=${SHOP_SYSTEM_VERSION} WIRECARD_PLUGIN_VERSION=3.3.0 PHP_VERSION=${PHP_VERSION} INSTALL_WIRECARD_PLUGIN=true ./run.xsh ${WOOCOMMERCE_CONTAINER_NAME} --non-interactive -d --daemon
 
 docker ps
 
