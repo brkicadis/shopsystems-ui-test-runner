@@ -27,7 +27,7 @@ export WOOCOMMERCE_ADMIN_USER=admin
 export WOOCOMMERCE_ADMIN_PASSWORD=password
 
 # clean up images
-docker rmi wirecard/woocommerce-ci:wordpress-5.4.2_php-74
+#docker rmi wirecard/woocommerce-ci:wordpress-5.4.2_php-74
 
 git clone https://"${GITHUB_TOKEN}":@github.com/wirecard-cee/docker-images.git
 
