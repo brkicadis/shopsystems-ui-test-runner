@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 export WOOCOMMERCE_CONTAINER_NAME=woo_commerce
-export PHP_VERSION=${PHP_VERSION//./}
 
 for ARGUMENT in "$@"; do
   KEY=$(echo "${ARGUMENT}" | cut -f1 -d=)
