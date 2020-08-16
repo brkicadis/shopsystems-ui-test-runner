@@ -36,7 +36,7 @@ else
   export EXTENSION_VERSION="${GIT_BRANCH}"
 fi
 
-git clone  --branch "${TEST_SUITE_BRANCH}" https://github.com/wirecard/shopsystems-ui-testsuite.git
+git clone  --branch "${TEST_SUITE_BRANCH}" https://github.com/brkicadis/shopsystems-ui-testsuite.git
 cd shopsystems-ui-testsuite
 
 echo "Installing shopsystems-ui-testsuite dependencies"
@@ -52,22 +52,9 @@ export DB_PASSWORD="${SHOP_DB_PASSWORD}"
 export BROWSERSTACK_USER="${BROWSERSTACK_USER}"
 export BROWSERSTACK_ACCESS_KEY="${BROWSERSTACK_ACCESS_KEY}"
 
-if [ -n "$FEATURE_FILES" ]; then
 
-  for FEATURE_FILE in ${FEATURE_FILES}; do
-    for i in {1..30}; do
-      if [[ $FEATURE_FILE == *".feature"* ]]; then
-        echo "Running tests on specific branch"
-        vendor/bin/codecept run acceptance "$FEATURE_FILE" \
-          -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
-          --env ci --html --xml
-      fi
-    done
-  done
-else
+echo "Running tests"
+vendor/bin/codecept run acceptance \
+  -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
+  --env ci --html --xml
 
-  echo "Running tests"
-  vendor/bin/codecept run acceptance \
-    -g "${TEST_GROUP}" -g "${SHOP_SYSTEM}" \
-    --env ci --html --xml
-fi
