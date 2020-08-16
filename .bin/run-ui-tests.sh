@@ -36,7 +36,7 @@ else
   export EXTENSION_VERSION="${GIT_BRANCH}"
 fi
 
-git clone  --branch "${TEST_SUITE_BRANCH}" https://github.com/brkicadis/shopsystems-ui-testsuite.git
+git clone  --branch master https://github.com/brkicadis/shopsystems-ui-testsuite.git
 cd shopsystems-ui-testsuite
 
 echo "Installing shopsystems-ui-testsuite dependencies"
